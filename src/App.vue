@@ -1,26 +1,33 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <textarea cols="30" rows="10"></textarea>
+  <textarea readonly cols="30" rows="10" :value="encryptedMessage"></textarea>
+  <textarea placeholder="Private key" cols="30" rows="10"></textarea>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios";
+import * as openpgp from "openpgp";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  data() {
+    return {
+      pubKey: {},
+    };
+  },
+
+  created() {
+    this.fetchData();
+  },
+
+  methods: {
+    async fetchData() {
+      let armoredKey = await axios
+        .get("pubkey")
+        .then((response) => response.data);
+      this.pubKey = await openpgp.readKey({ armoredKey: armoredKey });
+    },
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>

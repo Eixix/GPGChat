@@ -1,7 +1,17 @@
 <template>
-  <textarea cols="30" rows="10" v-model="message" @keyup="encrypt"></textarea>
-  <textarea readonly cols="30" rows="10" :value="encryptedMessage"></textarea>
-  <textarea placeholder="Private key" cols="30" rows="10"></textarea>
+  <v-textarea
+    cols="30"
+    rows="10"
+    v-model="message"
+    @keyup="encrypt"
+  ></v-textarea>
+  <v-textarea
+    readonly
+    cols="30"
+    rows="10"
+    :value="encryptedMessage"
+  ></v-textarea>
+  <v-textarea placeholder="Private key" cols="30" rows="10"></v-textarea>
 </template>
 
 <script>
